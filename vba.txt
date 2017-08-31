@@ -1,0 +1,299 @@
+1) For Add New Worksheet
+..................................................................
+Sub AddWorksheet()
+
+Worksheets.Add().Name = "MySheet"
+
+End Sub
+
+------------------------------------------------------------------
+
+2) For Add New Worksheet In Last Position
+...................................................................
+
+Sub AddAsLastWorksheet()
+
+Worksheets.Add (After:=Worksheets(Worksheets.Count)).Name = "MySheet"
+
+End Sub
+
+-------------------------------------------------------------------
+
+3) For Add Worksheet For User Choice
+...................................................................
+
+Sub AddXWorksheets()
+
+Worksheets.Add After:=Worksheets(Worksheets.Count), Count:=4
+
+End Sub
+
+---------------------------------------------------------------------
+4) Copy and Paste Single Column
+......................................................................
+
+public Sub demo()
+Dim rng As Range
+rng=Worksheets(1).Range("A!:A10")
+rng.Copy
+Worksheets(2).Activate
+ActivateSheet.Paste
+End Sub
+
+-----------------------------------------------------------------------
+
+5) For MsgBox
+........................................................................
+
+public Sub Button1()
+Dim name As String
+name= InputBox("Enter your name")
+MsgBox "hello world" + name
+End Sub
+--------------------------------------------------------------------------
+6) Copy and Paste Multiple Column in a Worksheet
+...........................................................................
+
+public Sub demo()
+Dim rng As Range
+Worksheets("filename").Activate
+Set rng=Worksheets("filename").Range("A1:J" & Cells(Rows.Count,1).End(xlUp).Row)
+rng.Select
+rng.Copy
+Worksheet.Add
+Activesheets.Paste
+End Sub
+
+------------------------------------------------------------------------------
+7) Copy And Paste Multiple Column in one Workbook to another Workbook
+..............................................................................
+
+public Sub demo()
+Dim rng As Range
+Worksheets("filename").Activate
+Set rng=Worksheets("filename").Range("A1:J" & Cells(Rows.Count,1).End(xlUp).Row)
+rng.Select
+rng.Copy
+Workbooks.Add
+ActiveWorkbook.Sheets(1).Paste
+End Sub
+
+------------------------------------------------------------------------------
+
+8) Add WorkSheet as Month namewise
+...............................................................................
+
+Sub AddMonthSequence()
+
+Dim wSheet As Worksheet
+
+Dim strName As String
+
+Dim lMonth As Long
+
+Dim lIndex As Long
+
+
+
+    For Each wSheet In Worksheets
+
+        Select Case wSheet.Name
+
+            Case "Jan", "January"
+
+                lMonth = 2
+
+                lIndex = wSheet.Index
+
+            Case "Feb", "Febuary"
+
+                If lMonth < 3 Then lMonth = 3
+
+                lIndex = wSheet.Index
+
+            Case "Mar", "March"
+
+                If lMonth < 4 Then lMonth = 4
+
+                lIndex = wSheet.Index
+
+            Case "Apr", "April"
+
+                If lMonth < 5 Then lMonth = 5
+
+                lIndex = wSheet.Index
+
+            Case "May"
+
+                If lMonth < 6 Then lMonth = 6
+
+                lIndex = wSheet.Index
+
+            Case "Jun", "June"
+
+                If lMonth < 7 Then lMonth = 7
+
+                lIndex = wSheet.Index
+
+            Case "Jul", "July"
+
+                If lMonth < 8 Then lMonth = 8
+
+                lIndex = wSheet.Index
+
+            Case "Aug", "August"
+
+                If lMonth < 9 Then lMonth = 9
+
+                lIndex = wSheet.Index
+
+            Case "Sep", "Septemeber"
+
+                If lMonth < 10 Then lMonth = 10
+
+                lIndex = wSheet.Index
+
+            Case "Oct", "October"
+
+                If lMonth < 11 Then lMonth = 11
+
+                lIndex = wSheet.Index
+
+            Case "Nov", "November"
+
+                If lMonth < 12 Then lMonth = 12
+
+                lIndex = wSheet.Index
+
+            Case "Dec", "December"
+
+                If lMonth < 12 Then lMonth = 12
+
+                lIndex = wSheet.Index
+
+            Case Else
+
+                If lMonth = 0 Then
+
+                  lMonth = 1
+
+                  lIndex = wSheet.Index
+
+                End If
+
+            End Select
+
+        Next wSheet
+
+    
+
+    If lMonth <> 0 And lMonth < 13 Then
+
+       On Error Resume Next
+
+        Worksheets.Add After:=Worksheets(lIndex)
+
+        ActiveSheet.Name = Format(DateSerial(Year(Date), lMonth, 1), "mmm")
+
+       On Error GoTo 0
+
+    End If
+
+
+
+End Sub
+
+---------------------------------------------------------------------------------------
+
+9) For Readinfg a webpage using Web Scraping vba
+.........................................................................................
+
+Public Sub MonthSequence()
+
+Dim ie As InternetExplorer
+Dim html As HTMLDocument
+
+
+Set ie = New InternetExplorer
+
+ie.Visible = True
+
+ie.navigate "https://www.exceltrainingvideos.com/scraping-web-page-data-automatically-with-excel-vba/"
+
+Set html = ie.document
+
+
+End Sub
+--------------------------------------------------------------------------------------------------
+
+10) student marksheet by HLOOKUP
+...................................................................................................
+
+Public Sub H_LOOKUP()
+On Error GoTo ErrorHandler
+Dim student As String
+Dim result As String
+Dim total As Integer
+Dim s As Variant
+
+student = InputBox("Enter the student Name:")
+If Len(student) > 0 Then
+  result = Application.WorksheetFunction.HLookup(student, ActiveSheet.Range("A1:I4"), 2, False)
+  result = result + Application.WorksheetFunction.HLookup(student, ActiveSheet.Range("A1:I4"), 3, False)
+  result = result + Application.WorksheetFunction.HLookup(student, ActiveSheet.Range("A1:I4"), 4, False)
+  
+ 
+  MsgBox student & " has got following Marks:" & vbNewLine & vbNewLine & "C:" & Space(12) & Application.WorksheetFunction.HLookup(student, ActiveSheet.Range("A1:I4"), 2, False) & vbNewLine & _
+  "C++:" & Space(7) & Application.WorksheetFunction.HLookup(student, ActiveSheet.Range("A1:I4"), 3, False) & vbNewLine & _
+  "Java:" & Space(7) & Application.WorksheetFunction.HLookup(student, ActiveSheet.Range("A1:I4"), 4, False) & vbNewLine & _
+   "Total:" & Space(5) & Val(result)
+
+  
+End If
+Exit Sub
+ErrorHandler:
+If Err.Number = 1004 Then
+  MsgBox "Student Not found in the records!"
+Else
+  MsgBox "Some Error Occurred"
+End If
+End Sub
+
+---------------------------------------------------------------------------------------------------------------
+
+11) Search Employe Salary by vlookup
+................................................................................................................
+Private Sub CommandButton1_Click()
+Dim name As String
+name = InputBox("enter the employee name")
+If Len(name) > 0 Then
+sal = Application.WorksheetFunction.VLookup(name, Sheet1.Range("B2:D6"), 3, False)
+
+MsgBox "salary is:" & sal
+Else
+MsgBox "you enter inavlid number"
+End If
+
+End Sub
+
+--------------------------------------------------------------------------------------------------------------------
+12) In one Sheet Create two table using one colun 
+
+..................................................................................................................
+
+ Private Sub CommandButton1_Click()
+
+Dim deptrow As Long
+Dim deptclm As Long
+Table1 = Sheets(1).Range("A2:A6")
+Table2 = Sheets(1).Range("H2:I6")
+deptrow = Sheets(1).Range("D2").Row
+deptclm = Sheets(1).Range("D2").Column
+For Each cl In Table1
+  Sheets(1).Cells(deptrow, deptclm) = Application.WorksheetFunction.VLookup(cl, Table2, 2, False)
+  deptrow = deptrow + 1
+Next cl
+MsgBox "Done"
+End Sub
+
+-----------------------------------------------------------------------------------------------------------------------
